@@ -1,318 +1,144 @@
-<h1 align="center">🚀 RiskPulse — Real-Time Project Risk & Delay Prediction System</h1>
+# 🚀 RiskPulse — Real-Time Project Risk & Delay Prediction System
 
-<p align="center">
-  <a href="https://riskpulse-ygtv.onrender.com"><b>🌐 Live Demo</b></a>
-</p>
+RiskPulse is an AI-powered, full-stack enterprise analytics platform designed to predict project delay probabilities and monitor portfolio health in real time. It implements a complete machine learning system combining a Random Forest predictive pipeline with a modern, glassmorphic SaaS dashboard.
 
-<p align="center">
-  <i>AI-powered full-stack SaaS for predicting project risks and delays</i>
-</p>
-
-<hr>
-
-<h2>📌 Overview</h2>
-
-<p>
-The <b>Real-Time Project Risk & Delay Prediction System</b> is a full-stack machine learning application designed to help project managers:
-</p>
-
-<ul>
-<li>Predict project delay risks using ML</li>
-<li>Monitor portfolio health in real time</li>
-<li>Analyze trends and performance</li>
-<li>Make data-driven decisions</li>
-</ul>
-
-<p>
-This system combines <b>machine learning + analytics dashboard + modern UI</b> to simulate a real SaaS product.
-</p>
-
-<hr>
-
-<h2>🧠 Key Features</h2>
-
-<h3>🔐 Authentication System</h3>
-<ul>
-<li>User Registration & Login</li>
-<li>Secure password hashing using Flask-Bcrypt</li>
-<li>Session management using Flask-Login</li>
-<li>Per-user project data isolation</li>
-</ul>
+🔗 **[🌐 View Live Production Demo](https://riskpulse-ygtv.onrender.com)**
 
 ---
 
-<h3>🤖 Machine Learning Prediction</h3>
-<ul>
-<li>Random Forest model (scikit-learn)</li>
-<li>Predicts:
-  <ul>
-    <li>Delay probability</li>
-    <li>Risk score (0–100%)</li>
-  </ul>
-</li>
-<li>Custom feature engineering pipeline</li>
-<li>REST API endpoint: <code>/predict</code></li>
-</ul>
+## 📖 Table of Contents
+1. [📌 Project Overview](#-project-overview)
+2. [📚 Detailed Technical Documentation](#-detailed-technical-documentation)
+3. [🤖 Core Features](#-core-features)
+4. [🛠️ Tech Stack](#️-tech-stack)
+5. [📁 Workspace Structure](#-workspace-structure)
+6. [⚙️ Quick Local Installation](#️-quick-local-installation)
+7. [👨‍💻 Author Info & Support](#-author-info--support)
 
 ---
 
-<h3>📊 Interactive Dashboard</h3>
+## 📌 Project Overview
 
-<b>KPI Metrics</b>
-<ul>
-<li>Total Projects</li>
-<li>Projects at Risk</li>
-<li>On Track Projects</li>
-<li>Average Risk Score</li>
-</ul>
-
-<b>🎯 Live Risk Gauge</b>
-<ul>
-<li>Displays real-time risk of latest analyzed project</li>
-<li>Animated gauge with status indicator</li>
-</ul>
-
-<b>🧠 Manager Insights</b>
-<ul>
-<li>AI-style portfolio insights</li>
-<li>Highlights:
-  <ul>
-    <li>High-risk projects</li>
-    <li>Medium-risk alerts</li>
-    <li>Portfolio health summary</li>
-    <li>Latest project analysis</li>
-  </ul>
-</li>
-</ul>
-
-<b>📈 Risk Trend Chart</b>
-<ul>
-<li>Time-based trend visualization</li>
-<li>Smooth curve with gradient fill</li>
-<li>Built using Chart.js</li>
-</ul>
-
-<b>📁 Project Overview</b>
-<ul>
-<li>Displays recent projects</li>
-<li>Risk badges and timestamps</li>
-<li>Scrollable list</li>
-</ul>
+RiskPulse helps project managers make data-driven decisions by translating project metrics into predictive outcomes. 
+*   **Predict Risk in Real-Time**: Evaluates scope progression, burn rates, and team parameters to determine the probability of project delay.
+*   **Actionable Insights**: Explains risk metrics through tree-derived features and logical diagnostics.
+*   **Real-Time Analytics**: Generates trend curves, portfolio metrics, and risk heatmaps.
 
 ---
 
-<h3>📑 Analytics & Reporting</h3>
+## 📚 Detailed Technical Documentation
 
-<b>📊 Portfolio Performance Report</b>
-<ul>
-<li>Total projects</li>
-<li>Delayed vs on-track</li>
-<li>Average risk</li>
-<li>Risk range</li>
-</ul>
+For in-depth analysis of the system components, explore the specialized sub-documents:
 
-<b>🍩 Risk Distribution Chart</b>
-<ul>
-<li>Doughnut chart showing:
-  <ul>
-    <li>Low / Medium / High risk projects</li>
-  </ul>
-</li>
-</ul>
+```
+                  ┌────────────────────────┐
+                  │       README.md        │
+                  │  (Landing & Overview)  │
+                  └───────────┬────────────┘
+                              │
+         ┌────────────┬───────┴────────┬────────────┐
+         ▼            ▼                ▼            ▼
+ ┌──────────────┐ ┌──────────────┐ ┌──────────┐ ┌──────────────┐
+ │ ARCHITECTURE │ │     API      │ │ MACHINE  │ │ DEVELOPMENT  │
+ │   .md        │ │ DOCUMENTATION│ │ LEARNING │ │   .md        │
+ │              │ │     .md      │ │   .md    │ │              │
+ └──────────────┘ └──────────────┘ └──────────┘ └──────────────┘
+```
 
-<b>🔥 Risk Heatmap</b>
-<ul>
-<li>Visual bar representation of project risks</li>
-</ul>
+*   **[🏛️ System Architecture (`ARCHITECTURE.md`)](file:///c:/Users/GURKIRAT%20SINGH/OneDrive/Desktop/2nd/simple%20projects/code_relay/project_risk_system/ARCHITECTURE.md)**: Deep dive into application component relationships, SQLAlchemy database models, E-R diagrams, security policies, and rate-limiting structures.
+*   **[📡 API Specification (`API_DOCUMENTATION.md`)](file:///c:/Users/GURKIRAT%20SINGH/OneDrive/Desktop/2nd/simple%20projects/code_relay/project_risk_system/API_DOCUMENTATION.md)**: Complete guide to all Flask routes, setting controllers, payload schemas, input validations, and integration code.
+*   **[🧠 Machine Learning Pipeline (`MACHINE_LEARNING.md`)](file:///c:/Users/GURKIRAT%20SINGH/OneDrive/Desktop/2nd/simple%20projects/code_relay/project_risk_system/MACHINE_LEARNING.md)**: Specifications of the Random Forest model, mathematical formulas for the 12 engineered features, explainability rules, and retraining processes.
+*   **[🛠️ Setup & Operations Runbook (`DEVELOPMENT.md`)](file:///c:/Users/GURKIRAT%20SINGH/OneDrive/Desktop/2nd/simple%20projects/code_relay/project_risk_system/DEVELOPMENT.md)**: Standard developer setup, environment configurations, migrations guides, WSGI deployments, and quick troubleshooting fixes.
 
-<hr>
+---
 
-<h2>⚙️ Backend Engineering Enhancements (Added)</h2>
+## 🤖 Core Features
 
-<ul>
-<li>Rate limiting (Flask-Limiter)</li>
-<li>Structured logging system</li>
-<li>Secure API architecture</li>
-<li>Input validation & error handling</li>
-<li>Production-ready Gunicorn setup</li>
-<li>Environment-based configuration</li>
-</ul>
+*   **🔒 Secure SaaS Workspace**: User accounts protected by `Flask-Bcrypt` password hashing and session cookies hardened with `HttpOnly` and `SameSite` flags.
+*   **🧠 Random Forest Prediction**: Instant predictions using a custom-engineered pipeline linked to an optimized machine learning model.
+*   **📊 Interactive Glassmorphism Dashboard**: Smooth, responsive UI featuring dynamic Chart.js timeseries graphs, circular gauges with custom counters, and detailed KPI cards.
+*   **🔑 API Key Management Manager**: Generates hashed API credentials directly from the settings interface for seamless programmatic integrations.
+*   **📈 Manager AI Summary**: Calculates trend shifts, highlights high-risk outliers, and automatically outputs recommendations for resources.
 
-<hr>
+---
 
-<h2>🛠️ Tech Stack</h2>
+## 🛠️ Tech Stack
 
-<h3>Backend</h3>
-<ul>
-<li>Python</li>
-<li>Flask</li>
-<li>Flask-SQLAlchemy</li>
-<li>Flask-Login</li>
-<li>Flask-Bcrypt</li>
-<li>Flask-Migrate</li>
-<li>Flask-Limiter</li>
-</ul>
+*   **Backend**: Flask, Flask-SQLAlchemy, Flask-Login, Flask-Bcrypt, Flask-Migrate, Flask-Limiter.
+*   **Machine Learning**: scikit-learn (Random Forest Classifier), NumPy, Joblib.
+*   **Frontend**: HTML5, CSS3 (Vanilla Glassmorphic design), Vanilla JavaScript.
+*   **Visualizations**: Chart.js (SVG circular gauges and dynamic lines).
+*   **Databases**: SQLite (Development) and PostgreSQL (Production hosting via Render).
+*   **Web Server**: Gunicorn (Production WSGI).
 
-<h3>Machine Learning</h3>
-<ul>
-<li>scikit-learn (Random Forest)</li>
-<li>NumPy</li>
-<li>Joblib</li>
-<li>Custom feature engineering</li>
-</ul>
+---
 
-<h3>Frontend</h3>
-<ul>
-<li>HTML5</li>
-<li>CSS3 (Glassmorphism UI)</li>
-<li>JavaScript (Vanilla JS)</li>
-</ul>
+## 📁 Workspace Structure
 
-<h3>Visualization</h3>
-<ul>
-<li>Chart.js</li>
-</ul>
-
-<h3>Database</h3>
-<ul>
-<li>PostgreSQL (Production - Render)</li>
-<li>SQLite (Development)</li>
-</ul>
-
-<h3>Deployment</h3>
-<ul>
-<li>Render (Cloud Hosting)</li>
-<li>Gunicorn</li>
-</ul>
-
-<hr>
-
-<h2>📁 Project Structure</h2>
-
-<pre>
+```
 project_risk_system/
-
-│── app.py
-│── risk_model.pkl
 │
-├── templates/
-├── static/
-├── logs/
-</pre>
+├── app.py                      # Main Flask application & routes controller
+├── train_model.py              # Baseline scikit-learn model compiler script
+├── retrain_model.py            # Environment-aware retraining script
+├── add_colums.py               # Manual sqlite schema migration script
+├── risk_model.pkl              # Compiled Random Forest model binary
+├── project_data.csv            # Original training project dataset
+├── requirements.txt            # Python dependencies configuration
+├── procfile                    # Render/Heroku WSGI application runner
+│
+├── static/                     # Assets directory (CSS, JS, Avatars)
+│   ├── style.css               # Main dashboard stylesheet
+│   ├── profile-style.css       # Profile settings stylesheet
+│   ├── auth.css                # Authentication page styles
+│   └── script.js               # Frontend fetch and rendering logic
+│
+├── templates/                  # Jinja2 HTML layout pages
+│   ├── dashboard.html          # Main UI view
+│   ├── analytics.html          # Reports and distributions charts
+│   ├── profile.html            # Profile info timeline page
+│   └── settings.html           # Settings, API key manager, passwords
+│
+└── logs/                       # Rotating production logs
+    └── app.log                 # Server activity logging target
+```
 
-<hr>
+---
 
-<h2>⚙️ Installation & Setup</h2>
+## ⚙️ Quick Local Installation
 
-<pre>
-git clone https://github.com/your-username/project-risk-system.git
-cd project-risk-system
-</pre>
+To run the application locally in under 2 minutes:
 
-<pre>
-python -m venv venv
-source venv/bin/activate
-</pre>
+1.  **Clone & Navigate**:
+    ```bash
+    git clone https://github.com/your-username/project-risk-system.git
+    cd project-risk-system
+    ```
+2.  **Initialize Environment & Install Packages**:
+    ```bash
+    python -m venv venv
+    # Windows: .\venv\Scripts\Activate.ps1
+    # Unix: source venv/bin/activate
+    pip install -r requirements.txt
+    ```
+3.  **Prepare local model binary**:
+    ```bash
+    python retrain_model.py
+    ```
+4.  **Run Application**:
+    ```bash
+    python app.py
+    ```
+    *Navigate to `http://localhost:5000` to access the dashboard.*
 
-<pre>
-pip install -r requirements.txt
-</pre>
+For database migrations or troubleshooting, please refer to the **[Setup & Operations Runbook (`DEVELOPMENT.md`)](file:///c:/Users/GURKIRAT%20SINGH/OneDrive/Desktop/2nd/simple%20projects/code_relay/project_risk_system/DEVELOPMENT.md)**.
 
-<pre>
-python app.py
-</pre>
+---
 
-<hr>
+## 👨‍💻 Author Info & Support
 
-<h2>🔄 API Endpoints</h2>
+*   **Author**: Gurkirat Singh Bhangoo
+*   **Version**: 2.0.0 (Enhanced Edition)
+*   **License**: MIT License (See `License.txt` for details)
 
-<h3>POST /predict</h3>
-
-<pre>
-{
-  "name": "Project A",
-  "progress": 50,
-  "deadline": 30,
-  "budget": 60,
-  "team": 5
-}
-</pre>
-
-<pre>
-{
-  "risk": 72.5,
-  "status": "Delayed"
-}
-</pre>
-
-<h3>GET /history</h3>
-<p>Returns all user projects</p>
-
-<hr>
-
-<h2>🧠 How It Works</h2>
-
-<ol>
-<li>User inputs project details</li>
-<li>Frontend sends request to backend</li>
-<li>Feature engineering is applied</li>
-<li>ML model predicts risk</li>
-<li>Data stored in database</li>
-<li>Dashboard updates in real time</li>
-</ol>
-
-<hr>
-
-<h2>🎨 UI/UX Highlights</h2>
-
-<ul>
-<li>Glassmorphism design</li>
-<li>Responsive layout</li>
-<li>Animated components</li>
-<li>Clean SaaS dashboard UI</li>
-</ul>
-
-<hr>
-
-<h2>🚀 Live Deployment</h2>
-
-<p>
-🔗 <a href="https://riskpulse-ygtv.onrender.com">https://riskpulse-ygtv.onrender.com</a>
-</p>
-
-<hr>
-
-<h2>📈 What Makes This Project Strong</h2>
-
-<ul>
-<li>End-to-end ML system (not just model)</li>
-<li>Full-stack architecture</li>
-<li>Production deployment experience</li>
-<li>Real-world problem solving</li>
-<li>Scalable backend design</li>
-</ul>
-
-<hr>
-
-<h2>🚧 Future Improvements</h2>
-
-<ul>
-<li>Advanced explainability (SHAP)</li>
-<li>Model versioning</li>
-<li>API monetization</li>
-<li>Real-time updates (WebSockets)</li>
-</ul>
-
-<hr>
-
-<h2>👨‍💻 Author</h2>
-
-<p><b>Gurkirat Singh Bhangoo</b></p>
-
-<p>
-Built as a flagship full-stack AI product demonstrating real-world ML system design.
-</p>
-
-<hr>
-
-<h2 align="center">⭐ Star this repo if you like it!</h2>
+*⭐ Star this repo if you find it helpful for learning or deploying end-to-end full-stack machine learning applications!*

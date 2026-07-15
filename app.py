@@ -71,24 +71,51 @@ login_manager.login_view = "login"
 # ==============================
 
 if not app.debug:
-    # Create logs directory if it doesn't exist
-    if not os.path.exists('logs'):
-        os.mkdir('logs')
+    # Detect serverless/Vercel environments (read-only file system)
+    is_serverless = os.environ.get("VERCEL") == "1" or os.environ.get("SERVERLESS") == "true"
     
-    # File handler for error logs
-    file_handler = RotatingFileHandler(
-        'logs/app.log',
-        maxBytes=10240000,  # 10MB
-        backupCount=10
-    )
-    file_handler.setFormatter(logging.Formatter(
-        '%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'
-    ))
-    file_handler.setLevel(logging.INFO)
-    app.logger.addHandler(file_handler)
-    
-    app.logger.setLevel(logging.INFO)
-    app.logger.info('Risk Predictor startup')
+    if not is_serverless:
+        if not os.path.exists('logs'):
+            try:
+                os.mkdir('logs')
+            except OSError:
+                is_serverless = True
+                
+    if is_serverless:
+        # Fallback to console logging (stdout) on read-only file systems
+        stream_handler = logging.StreamHandler()
+        stream_handler.setFormatter(logging.Formatter(
+            '%(asctime)s %(levelname)s: %(message)s'
+        ))
+        stream_handler.setLevel(logging.INFO)
+        app.logger.addHandler(stream_handler)
+        app.logger.setLevel(logging.INFO)
+        app.logger.info('Risk Predictor starting in Serverless/Vercel mode (Console Logging Active)')
+    else:
+        try:
+            # File handler for error logs (standard server deployments)
+            file_handler = RotatingFileHandler(
+                'logs/app.log',
+                maxBytes=10240000,  # 10MB
+                backupCount=10
+            )
+            file_handler.setFormatter(logging.Formatter(
+                '%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'
+            ))
+            file_handler.setLevel(logging.INFO)
+            app.logger.addHandler(file_handler)
+            app.logger.setLevel(logging.INFO)
+            app.logger.info('Risk Predictor startup (File Logging Active)')
+        except OSError as e:
+            # Final fallback in case of write permission issues
+            stream_handler = logging.StreamHandler()
+            stream_handler.setFormatter(logging.Formatter(
+                '%(asctime)s %(levelname)s: %(message)s'
+            ))
+            stream_handler.setLevel(logging.INFO)
+            app.logger.addHandler(stream_handler)
+            app.logger.setLevel(logging.INFO)
+            app.logger.warning(f'Could not initialize file log handler ({str(e)}). Fell back to console logging.')
 
 # ==============================
 # 🔥 FIX 2: LOAD ML MODEL SAFELY
