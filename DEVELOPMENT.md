@@ -131,8 +131,9 @@ RiskPulse can be hosted on traditional cloud platforms (Render, Heroku) or serve
 ### Option 2: Vercel (Serverless Functions)
 Vercel runs Flask as serverless functions. Because Vercel utilizes a read-only filesystem (`/var/task`), you must respect these serverless rules:
 1.  **Logging**: RiskPulse automatically detects Vercel (`VERCEL=1`) and redirects logging from file-writing (`RotatingFileHandler`) to `StreamHandler` (std.out). This prevents the `OSError: [Errno 30] Read-only file system` crash.
-2.  **Database**: You **MUST** use an external hosted database (e.g., Supabase or Neon PostgreSQL) via the `DATABASE_URL` environment variable. A local SQLite database is read-only and ephemeral, which will fail or lose data.
-3.  **Model Compilation**: Vercel runs in a clean build workspace. Ensure `python retrain_model.py` is called if you change python environment settings.
+2.  **Database**: It is highly recommended to use an external hosted database (e.g., Supabase or Neon PostgreSQL) via the `DATABASE_URL` environment variable. If `DATABASE_URL` is omitted on Vercel, the application automatically redirects SQLite database writes to `/tmp/database.db` (which is writable in serverless environments). This prevents the `sqlite3.OperationalError: attempt to write a readonly database` crash, allowing the app to run temporarily, but data will be ephemeral and reset when serverless containers reboot.
+3.  **Secret Key**: If no `SECRET_KEY` env var is specified on Vercel, the application falls back to a stable default key to prevent session validation failures and random logouts during Vercel container instances switching.
+4.  **Model Compilation**: Vercel runs in a clean build workspace. Ensure `python retrain_model.py` is called if you change python environment settings.
 
 ---
 

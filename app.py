@@ -25,11 +25,16 @@ app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
 # CONFIGURATION
 # ==============================
 
-app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", secrets.token_hex(32))
+is_serverless = os.environ.get("VERCEL") == "1" or os.environ.get("SERVERLESS") == "true"
 
+# Fallback to a stable key if not set, preventing session invalidation on serverless reboots
+app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "riskpulse_stable_secret_key_default_987654321")
+
+# Use a writable directory (/tmp) in serverless environments for the SQLite database
+default_db_uri = "sqlite:////tmp/database.db" if is_serverless else "sqlite:///database.db"
 app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get(
     "DATABASE_URL",
-    "sqlite:///database.db"
+    default_db_uri
 )
 
 # Fix for Heroku postgres URLs
@@ -882,6 +887,16 @@ def api_profile():
     except Exception as e:
         app.logger.error(f"Profile API error: {str(e)}")
         return jsonify({"error": "Failed to load profile"}), 500
+
+
+# ==============================
+# SILENT FAVICON HANDLER
+# ==============================
+
+@app.route('/favicon.ico')
+@app.route('/favicon.png')
+def favicon():
+    return '', 204
 
 
 # ==============================
