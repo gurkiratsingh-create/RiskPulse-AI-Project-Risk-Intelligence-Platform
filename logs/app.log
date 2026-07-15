@@ -18,3 +18,4 @@
 2026-07-11 11:02:23,457 INFO: New user registered: thunderer [in c:\Users\GURKIRAT SINGH\OneDrive\Desktop\2nd\simple projects\code_relay\project_risk_system\app.py:258]
 2026-07-11 11:02:33,841 INFO: User logged in: thunderer [in c:\Users\GURKIRAT SINGH\OneDrive\Desktop\2nd\simple projects\code_relay\project_risk_system\app.py:283]
 2026-07-11 11:03:13,440 INFO: Project created: fhbrevr by thunderer [in c:\Users\GURKIRAT SINGH\OneDrive\Desktop\2nd\simple projects\code_relay\project_risk_system\app.py:483]
+2026-07-15 19:16:15,016 INFO: Risk Predictor startup (File Logging Active) [in C:\Users\GURKIRAT SINGH\OneDrive\Desktop\2nd\simple projects\code_relay\project_risk_system\app.py:110]

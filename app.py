@@ -5,6 +5,7 @@ from flask_bcrypt import Bcrypt
 from flask_migrate import Migrate
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
+from werkzeug.middleware.proxy_fix import ProxyFix
 import joblib
 from datetime import datetime
 import os
@@ -18,6 +19,7 @@ import numpy as np
 # ==============================
 
 app = Flask(__name__)
+app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
 
 # ==============================
 # CONFIGURATION
@@ -116,6 +118,16 @@ if not app.debug:
             app.logger.addHandler(stream_handler)
             app.logger.setLevel(logging.INFO)
             app.logger.warning(f'Could not initialize file log handler ({str(e)}). Fell back to console logging.')
+
+# Warn about using SQLite on serverless environments (Vercel)
+is_serverless_env = os.environ.get("VERCEL") == "1" or os.environ.get("SERVERLESS") == "true"
+if is_serverless_env and "sqlite" in app.config["SQLALCHEMY_DATABASE_URI"]:
+    app.logger.warning(
+        "⚠️ WARNING: SQLite database is configured in a serverless environment (Vercel). "
+        "Because Vercel serverless function instances are stateless and ephemeral, database "
+        "changes will not persist across requests. This will cause users to be logged out "
+        "when switching pages. Please configure 'DATABASE_URL' to a persistent PostgreSQL database."
+    )
 
 # ==============================
 # 🔥 FIX 2: LOAD ML MODEL SAFELY
@@ -536,11 +548,15 @@ def history():
         
         data = [
             {
-                "id":        p.id,
-                "name":      p.name,
-                "risk":      float(p.risk),  # Ensure float
-                "status":    p.status,
-                "timestamp": p.timestamp.strftime("%Y-%m-%d %H:%M")
+                "id":             p.id,
+                "name":           p.name,
+                "risk":           float(p.risk),  # Ensure float
+                "status":         p.status,
+                "timestamp":      p.timestamp.strftime("%Y-%m-%d %H:%M"),
+                "progress":       float(p.progress) if p.progress is not None else 0.0,
+                "deadline":       float(p.deadline) if p.deadline is not None else 0.0,
+                "budget_percent": float(p.budget_percent) if p.budget_percent is not None else 0.0,
+                "team_size":      float(p.team_size) if p.team_size is not None else 0.0
             }
             for p in projects
         ]
